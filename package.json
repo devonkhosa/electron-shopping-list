@@ -1,0 +1,14 @@
+{
+  "name": "shoppinglist",
+  "version": "1.0.0",
+  "description": "Shopping list desktop application (Traversy Media)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Devon Khosa",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^8.2.5"
+  }
+}
