@@ -9,7 +9,9 @@ let addWindow;
 //Listen for app to be ready
 app.on('ready', function() {
     //create new window
-    mainWindow = new BrowserWindow({});
+    mainWindow = new BrowserWindow({
+        webPreferences:{nodeIntegration: true}
+    });
     //Load html file into window
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'mainWindow.html'),
@@ -23,7 +25,7 @@ app.on('ready', function() {
     });
 
     //Build menu from template
-    const mainMenu = Menu.buildFromTemplate(mainMemuTemplate);
+    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     //insert menu
     Menu.setApplicationMenu(mainMenu);
 });
@@ -42,11 +44,16 @@ function createAddWindow(){
      protocol: 'file',
      slashes: true
  }));
+ // Garbage collection handle
+ addWindow.on('close', function(){
+     addWindow = null;
+ });
 }
 
 //Create menu template
 
-const mainMemuTemplate = [
+const mainMenuTemplate = [
+
     {
         label:'File',
         submenu: [
@@ -57,7 +64,10 @@ const mainMemuTemplate = [
                 }
             },
             {
-                label: 'Clear Items'
+                label: 'Clear Items',
+                click(){
+                    createAddWindow();
+                }
             },
             {
                 label: 'Quit',
@@ -71,9 +81,9 @@ const mainMemuTemplate = [
     }
 ];
 
-/* //If mac, add empty object to menu
+//If mac, add empty object to menu
 if(process.platform == 'darwin'){
-    mainMenuTemplate.unshift({});
+    mainMenuTemplate.unshift();
 }
 
 //Add dev tools if not in production
@@ -82,11 +92,16 @@ if(process.env.NODE_ENV !== 'production'){
         label: 'Developer Tools',
         submenu:[
             {
-                label: 'Toggle Dev Tools',
+                role: 'reload'
+            },
+            {
+                label: 'Toggle DevTools',
+                accelerator: process.platform == 'darwin' ? 'Command+I' :
+                'Ctrl+I',
                 click(item, focusedWindow){
                     focusedWindow.toggleDevTools();
                 }
-            }
+            },
         ]
-    })
-}; */
+    });
+} 
