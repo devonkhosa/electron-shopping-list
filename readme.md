@@ -1,4 +1,4 @@
-Shopping List 
+#Shopping List 
 
-*MAC OS X*
+##MAC OS X
 To build, first run "npm install", and then run "npm run package-mac".
