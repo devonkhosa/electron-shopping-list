@@ -1,14 +1,19 @@
 {
   "name": "shoppinglist",
+  "productName": "Shopping List",
   "version": "1.0.0",
   "description": "Shopping list desktop application (Traversy Media)",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds"
   },
   "author": "Devon Khosa",
   "license": "MIT",
   "dependencies": {
     "electron": "^8.2.5"
+  },
+  "devDependencies": {
+    "electron-packager": "^14.2.1"
   }
 }
